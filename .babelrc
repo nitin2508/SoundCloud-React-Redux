@@ -1,0 +1,29 @@
+{
+  "presets": [
+    ["es2015", { "modules": false }],
+    "react",
+    "stage-1"
+  ],
+
+  "plugins": [
+    "transform-function-bind"
+  ],
+
+  "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    },
+    "production": {
+      "presets": [
+        "react-optimize"
+      ]
+    },
+    "test": {
+      "plugins": [
+        ["istanbul", {"exclude": ["**/*.spec.js"]}]
+      ]
+    }
+  }
+}
