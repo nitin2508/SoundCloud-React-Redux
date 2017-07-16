@@ -3,19 +3,18 @@ import '../style/style.css';
 import {songCardImageUrl} from '../utilFunction/track/track.js'
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
-import {playSong} from '../actions/index.js';
+import {playSong} from '../actions/playerAction.js';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import MaterialIcon from 'react-google-material-icons'
 
 class SongCard extends Component {
 
-  CardExampleWithAvatar(song){
-     // console.log(this.props);
+    constructor(props){
+        super(props);
+    }
 
-    //
-    //     <PlayIcon />
-    //
+    CardExampleWithAvatar(song){
       return(<div>
                 <img src={songCardImageUrl(song)}/>
                 <div className="card-body">
@@ -24,7 +23,7 @@ class SongCard extends Component {
                         <p className="card-title">{song.title}</p>
                     </div>
                     <div className="card-button">
-                             <i onClick={()=>this.props.playSong(song)} className="material-icons md-light card-button-icon">play_arrow</i>
+                             <i onClick={()=>this.props.playSong(this.props.index)} className="material-icons md-light card-button-icon">play_arrow</i>
                     </div>
                </div>
             </div>)

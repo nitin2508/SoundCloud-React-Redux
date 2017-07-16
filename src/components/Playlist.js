@@ -12,10 +12,11 @@ class Playlist extends Component {
     }
 
     playlist() {
+        console.log(this.props);
         if (this.props.playlist) {
         return this.props.playlist.map((song, index) => {
             if(song && song.artwork_url){
-            return<Grid item key={index}><SongCard key={index} song={song} /> </Grid>
+            return<Grid item key={index}><SongCard index={index} key={index} song={song} /> </Grid>
         }
         });
     } else {
@@ -28,7 +29,8 @@ class Playlist extends Component {
             <Grid container justify="space-around" >
                 {this.playlist()}
             </Grid>
-                {this.props.currentSong?<Player/>:<div>nitin</div>}
+                {this.props.currentSongIndex}
+                {this.props.currentSongIndex!=null?<Player/>:<div>nitin</div>}
             </div>
                );
      }
@@ -36,9 +38,10 @@ class Playlist extends Component {
 // {this.props.currentSong?<Player/>:<div>nitin</div>}
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
-        playlist:state.playlist,
-        currentSong:state.currentSong
+        playlist:state.player.selectedPlaylists,
+        currentSongIndex:state.player.currentSongIndex
     };
 }
 

@@ -32,7 +32,7 @@ body{
 .player{
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 88%;
     background-color: #1d1e1f;
     height: 70px;
     left:0px;

@@ -5,7 +5,10 @@ import ReactDOM from 'react-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Grid from 'material-ui/Grid';
-import {formatSeconds , convertMilliSecondToSecond} from '../utilFunction/track/track.js'
+import {formatSeconds , convertMilliSecondToSecond} from '../utilFunction/track/track.js';
+import {bindActionCreators} from 'redux';
+import {playNext} from '../actions/playerAction'
+import {playSong} from '../actions/playerAction.js';
 const Handle = Slider.Handle;
 
 
@@ -17,7 +20,9 @@ class Player extends Component{
         //this.handlePlay = this.handlePlay.bind(this);
         this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
         this.handleSeeking = this.handleSeeking.bind(this);
-        //const audioElement =''
+        this.playNextSong = this.playNextSong.bind(this);
+        this.playPrevSong = this.playPrevSong.bind(this);
+        //const audioElement =''playNextSongplayNextSong
         this.state={
             isPlaying:true,
             muted:false,
@@ -30,6 +35,7 @@ class Player extends Component{
 
     }
     componentDidMount(){
+        console.log("DIDMOUNTED");
         //const audioElement = document.getElementById('audio')
         this.audio.addEventListener('ended', this.handleEnded);
         this.audio.addEventListener('loadedmetadata', this.handleLoadedMetadata);
@@ -48,10 +54,7 @@ class Player extends Component{
     handleTimeUpdate(){
 
         this.setState({currentTime:Math.floor(this.audio.currentTime)});
-        console.log(this.state.currentTime);
         const abc = (this.state.currentTime/convertMilliSecondToSecond(this.props.currentSong.duration))*100;
-        console.log(abc);
-        console.log(document.getElementsByClassName('rc-slider-track'));
     document.getElementsByClassName('rc-slider-track')[0].style.width=abc+'%';
     document.getElementsByClassName('rc-slider-handle')[0].style.left=abc+'%';
 
@@ -64,9 +67,13 @@ class Player extends Component{
     //     alert("Downloading video");
     // }
 
-    componentDidUpdate(){
-        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
-        //audioElement.play()
+    componentDidUpdate(prevProps){
+        if(prevProps.songIndex == this.props.songIndex){
+            return;
+        }
+        //const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+        this.audio.load();
+        this.audio.play();
     }
 
     handlePause(event){
@@ -90,6 +97,19 @@ class Player extends Component{
         this.audio.currentTime = event;
     }
 
+    playNextSong(){
+        const nextIndex = this.props.songIndex+1;
+        this.props.playSong(nextIndex);
+    }
+
+    playPrevSong(){
+        if(this.props.songIndex==0){
+            return;
+        }
+        const prevIndex = this.props.songIndex-1;
+        this.props.playSong(prevIndex);
+    }
+
 
     render(){
         if(this.props.currentSong){
@@ -98,15 +118,17 @@ class Player extends Component{
                     <audio id="audio" ref={audio=>this.audio = audio}>
                     <source src={`${this.props.currentSong.stream_url}?client_id=${CLIENT_ID}`} type="audio/ogg"/>
                     </audio>
-                    <Grid container gutter={24}>
-                        <Grid item md={3}>
+                    <Grid container justify="space-between" align="center" gutter={24}>
+                        <Grid item md={2}>
+                                <i onClick={this.playPrevSong} className="material-icons md-light">skip_previous</i>
                                 {this.state.isPlaying?<i onClick={()=>this.handlePause()} className="material-icons md-light">pause</i>: <i onClick={()=>this.handlePlay()} className="material-icons md-light">play_arrow</i>}
+                                <i onClick={this.playNextSong} className="material-icons md-light">skip_next</i>
                         </Grid>
                         <Grid item md = {4}>
                         <p>{convertMilliSecondToSecond(this.props.currentSong.duration)} {this.state.currentTime} </p>
                             <Slider tipTransitionName="Seeker" min={0}  max={convertMilliSecondToSecond(this.props.currentSong.duration)} onAfterChange={this.handleSeeking} handle={this.handle} />
                         </Grid>
-                        <Grid item md={3}>
+                        <Grid item md={4}>
                             <Slider tipTransitionName="volume" tipFormatter={10} onChange={this.handleFirstSlider} defaultValue={this.state.volume} />
                         </Grid>
 
@@ -123,8 +145,13 @@ class Player extends Component{
 function mapStateToProps(state){
     console.log(state);
     return{
-        currentSong:state.currentSong
+        currentSong:state.player.selectedPlaylists[state.player.currentSongIndex],
+        songIndex:state.player.currentSongIndex
     }
 }
 
-export default connect (mapStateToProps,null)(Player);
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({playSong},dispatch);
+}
+
+export default connect (mapStateToProps,mapDispatchToProps)(Player);
