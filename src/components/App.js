@@ -7,7 +7,8 @@ export default class App extends Component {
   render() {
     return ( <MuiThemeProvider><div>
             <Playlist />
-            <Player/>
+
             </div></MuiThemeProvider>)
     }
 }
+// <Player/>

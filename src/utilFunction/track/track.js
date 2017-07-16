@@ -7,3 +7,13 @@ export function songCardImageUrl(trackData){
     return url.replace(IMAGE_DEFAULT_SIZE,IMAGE_XLARGE_SIZE);
     }
 }
+
+export function formatSeconds(time){
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds}`;
+}
+
+export function convertMilliSecondToSecond(time){
+    return Math.floor(time/1000)
+}

@@ -17,9 +17,6 @@ function PlaylistReducer(state = [], action) {
 }
 
 function PlaySongReducer (state =null,action){
-    console.log(state);
-    console.log('=======song==========');
-    console.log(action);
     switch (action.type){
         case PLAY_SONG:
         return action.payload;
