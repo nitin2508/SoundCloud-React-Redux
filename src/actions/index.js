@@ -25,7 +25,7 @@ export function searchSong(searchTerm){
     const url=`${baseUrl}&q=${searchTerm}`;
     const request =axios.get(url);
     return{
-        type:ON_SEARCH,
+        type:FETCH_PLAYLIST,
         payload:request,
         meta:{key:searchTerm}
 

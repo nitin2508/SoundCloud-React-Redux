@@ -17,10 +17,7 @@ class Header extends Component{
     }
 
     onSearch(event){
-
-        console.log("Call search")
-        console.log(searchSong);;
-        searchSong(this.state.searchTerm);
+        this.props.searchSong(this.state.searchTerm);
         event.preventDefault();
     }
 
