@@ -77,6 +77,7 @@ class Player extends Component{
     }
 
     handlePause(event){
+        console.log(this);
         this.setState({isPlaying:false})
         this.audio.pause();
     }
@@ -121,7 +122,7 @@ class Player extends Component{
                     <Grid container justify="space-between" align="center" gutter={24}>
                         <Grid item md={2}>
                                 <i onClick={this.playPrevSong} className="material-icons md-light">skip_previous</i>
-                                {this.state.isPlaying?<i onClick={()=>this.handlePause()} className="material-icons md-light">pause</i>: <i onClick={()=>this.handlePlay()} className="material-icons md-light">play_arrow</i>}
+                                {this.state.isPlaying?<i onClick={this.handlePause} className="material-icons md-light">pause</i>: <i onClick={this.handlePlay} className="material-icons md-light">play_arrow</i>}
                                 <i onClick={this.playNextSong} className="material-icons md-light">skip_next</i>
                         </Grid>
                         <Grid item md = {4}>

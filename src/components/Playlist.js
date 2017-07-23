@@ -25,7 +25,7 @@ class Playlist extends Component {
     }
 
     render() {
-        return (<div>
+        return (<div id="playlist">
             <Grid container justify="space-around" >
                 {this.playlist()}
             </Grid>
