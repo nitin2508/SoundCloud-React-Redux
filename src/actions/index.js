@@ -1,8 +1,11 @@
 import axios from 'axios';
 import {CLIENT_ID} from '../constant/constant.js';
+import store from '../index'
 export const FETCH_PLAYLIST = 'FETCH_PLAYLIST';
 export const PLAY_SONG = 'PLAY_SONG';
 export const ON_SEARCH = 'ON_SEARCH';
+export const ON_SCROLL = 'ON_SCROLL';
+export const IS_FETCHING = 'IS_FETCHING';
 //const baseurl ='https://api.soundcloud.com/users/185676792/favorites';
 const searchurl = 'https://api.soundcloud.com/tracks/185676792/favorites';
 const baseUrl=`https://api.soundcloud.com/tracks?linked_partitioning=1&client_id=${CLIENT_ID}&limit=60&offset=0`
@@ -16,12 +19,10 @@ export function playList(){
         type:FETCH_PLAYLIST,
         meta:{key:'house'},
         payload:request,
-        //key:'house'
     }
 }
 
 export function searchSong(searchTerm){
-    console.log(searchTerm);
     const url=`${baseUrl}&q=${searchTerm}`;
     const request =axios.get(url);
     return{
@@ -30,4 +31,20 @@ export function searchSong(searchTerm){
         meta:{key:searchTerm}
 
     }
+}
+
+export function loadPlaylistOnScroll(url){
+    changeStateIsFetching();
+    const request =axios.get(url);
+    return{
+        type:ON_SCROLL,
+        payload:request,
+    }
+}
+
+function changeStateIsFetching(){
+    console.log('loader');
+    store.dispatch({
+        type:IS_FETCHING
+    })
 }

@@ -6,6 +6,8 @@ body{
 }
 #playlist{
     padding: 5%;
+    /*height: 80vh;
+    overflow-y:visible;*/
 }
 .ClassCard{
 
