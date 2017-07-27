@@ -19,11 +19,7 @@ class Playlist extends Component {
     }
 
     onScroll(event) {
-        //console.log(event);
-        console.log(this.props);
         if((window.innerHeight+window.scrollY>document.body.offsetHeight-300) && !this.props.isFetching){
-
-            console.log(this.props);
             if(this.props.nextUrl){
                 this.flag = false;
                 this.props.loadPlaylistOnScroll(this.props.nextUrl);
@@ -32,7 +28,6 @@ class Playlist extends Component {
     }
 
     playlist() {
-        console.log(this.props);
         if (this.props.playlist) {
         return this.props.playlist.map((song, index) => {
             if(song && song.artwork_url){
@@ -50,15 +45,13 @@ class Playlist extends Component {
                 {this.playlist()}
             </Grid>
                 {this.props.currentSongIndex}
-                {this.props.currentSongIndex!=null?<Player/>:<div>nitin</div>}
+                {this.props.currentSongIndex!=null?<Player/>:<div></div>}
             </div>
                );
      }
 }
-// {this.props.currentSong?<Player/>:<div>nitin</div>}
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         playlist:state.player.selectedPlaylists,
         currentSongIndex:state.player.currentSongIndex,

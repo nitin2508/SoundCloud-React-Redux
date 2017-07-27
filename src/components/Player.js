@@ -35,7 +35,6 @@ class Player extends Component{
 
     }
     componentDidMount(){
-        console.log("DIDMOUNTED");
         //const audioElement = document.getElementById('audio')
         this.audio.addEventListener('ended', this.handleEnded);
         this.audio.addEventListener('loadedmetadata', this.handleLoadedMetadata);
@@ -52,12 +51,12 @@ class Player extends Component{
     }
 
     handleTimeUpdate(){
-
+        if(this.audio){
         this.setState({currentTime:Math.floor(this.audio.currentTime)});
         const abc = (this.state.currentTime/convertMilliSecondToSecond(this.props.currentSong.duration))*100;
-    document.getElementsByClassName('rc-slider-track')[0].style.width=abc+'%';
-    document.getElementsByClassName('rc-slider-handle')[0].style.left=abc+'%';
-
+        document.getElementsByClassName('rc-slider-track')[0].style.width=abc+'%';
+        document.getElementsByClassName('rc-slider-handle')[0].style.left=abc+'%';
+    }
         //console.log(("Start: " + this.audio.start(0)+ " End: " + this.audio.end(0)));
     }
 
@@ -77,7 +76,6 @@ class Player extends Component{
     }
 
     handlePause(event){
-        console.log(this);
         this.setState({isPlaying:false})
         this.audio.pause();
     }
@@ -94,7 +92,6 @@ class Player extends Component{
     }
 
     handleSeeking(event){
-        console.log(event);
         this.audio.currentTime = event;
     }
 
@@ -113,6 +110,7 @@ class Player extends Component{
 
 
     render(){
+        console.log("PLAYER RENDERING");
         if(this.props.currentSong){
             return(
                 <div className="player">
@@ -144,7 +142,6 @@ class Player extends Component{
 }
 
 function mapStateToProps(state){
-    console.log(state);
     return{
         currentSong:state.player.selectedPlaylists[state.player.currentSongIndex],
         songIndex:state.player.currentSongIndex

@@ -12,7 +12,9 @@ const baseUrl=`https://api.soundcloud.com/tracks?linked_partitioning=1&client_id
 
 
 export function playList(){
-    const url=`${baseUrl}&tags=house`;
+    //changeStateIsFetching();
+    console.log(store);
+    const url=`${baseUrl}&tags=bollywood`;
     const request =axios.get(url);
     request.key = 'house';
     return{
@@ -23,6 +25,7 @@ export function playList(){
 }
 
 export function searchSong(searchTerm){
+    changeStateIsFetching();
     const url=`${baseUrl}&q=${searchTerm}`;
     const request =axios.get(url);
     return{
@@ -43,7 +46,6 @@ export function loadPlaylistOnScroll(url){
 }
 
 function changeStateIsFetching(){
-    console.log('loader');
     store.dispatch({
         type:IS_FETCHING
     })
