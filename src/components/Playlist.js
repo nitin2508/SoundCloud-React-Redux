@@ -15,7 +15,7 @@ class Playlist extends Component {
     componentDidMount() {
         //this.props.playList();
         this.onScroll('Mounter')
-        window.addEventListener('scroll', this.onScroll)
+        window.addEventListener('scroll', this.onScroll);
     }
 
     onScroll(event) {

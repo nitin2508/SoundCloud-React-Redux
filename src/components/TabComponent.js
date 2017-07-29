@@ -9,7 +9,18 @@ import {playList, loadPlaylistOnScroll} from '../actions/index';
 class TabComponent extends Component {
   constructor(props){
     super(props);
-    this.state = {index:0}
+    this.state = {index:0};
+    this.onScroll = this.onScroll.bind(this);
+  }
+
+  onScroll(event) {
+    console.log(window.scrollY);
+    if(window.scrollY>75){
+      document.getElementById('tabComponent').style.position='fixed';
+      document.getElementById('tabComponent').style.top='0';
+    }else{
+      document.getElementById('tabComponent').style.position='static';
+    }
   }
 
   handleChange = (event, index) => {
@@ -19,7 +30,8 @@ class TabComponent extends Component {
   }
 
   componentDidMount(){
-    this.setState({index:9})
+    window.addEventListener('scroll', this.onScroll)
+    this.setState({index:0})
     this.props.playList('bollywood');
     //this.handleChange();
   }
@@ -30,8 +42,9 @@ class TabComponent extends Component {
     })
   }
   render(){
+    console.log(this.property);
     return (
-      <div className="tabParent">
+      <div id="tabComponent" className="tabParent highZIndex">
         <AppBar position="static">
           <Tabs
             index={this.state.index}

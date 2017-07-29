@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import {playSong} from '../actions/playerAction.js';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import MaterialIcon from 'react-google-material-icons'
+import MaterialIcon from 'react-google-material-icons';
 
 class SongCard extends Component {
 

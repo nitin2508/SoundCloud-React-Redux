@@ -5,6 +5,9 @@ import {bindActionCreators} from 'redux';
 import LoadingComponent from './LoadingComponent';
 import * as logo from '../assets/wave.png';
 import Grid from 'material-ui/Grid';
+import MaterialIcon from 'react-google-material-icons';
+import Input from 'material-ui/Input/Input';
+
 
 class Header extends Component {
     constructor(props) {
@@ -35,6 +38,10 @@ class Header extends Component {
     }
 
     render() {
+      const inputStyle={
+        color:'#42c0fb',
+        fontSize:'14px'
+      }
         return (
             <Grid
                 container
@@ -51,9 +58,13 @@ class Header extends Component {
                     </div>
                 </Grid>
                 <Grid item>
-                    <form onSubmit={this.onSearch}>
-                        <input onChange={this.onInputChange}/>
-                    </form>
+                <div style={inputStyle} className="">
+                  <form  onSubmit={this.onSearch}>
+                    <i style={{fontSize:'20px',top:'5px',marginRight:'10px'}} className="material-icons md-light card-button-icon">search</i>
+                  <Input style={{color:'#42c0fb',borderBottom:'1px solid brown !important'}} placeholder="Search" type="text" className="" onChange={this.onInputChange} />
+                  </form>
+                </div>
+
                 </Grid>
             </Grid>
         )

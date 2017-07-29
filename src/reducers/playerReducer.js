@@ -27,7 +27,8 @@ export default function PlayerReducer(state = initalState, action) {
       });
     case CHANGE_PLAYING_SONG:
       return Object.assign({}, state, {
-        currentSong: action.currentSong
+        currentSong: action.currentSong,
+        isPlaying:true
       });
     case TOGGLE_IS_PLAYING:
       return Object.assign({}, state, {

@@ -23,6 +23,7 @@ class Player extends Component{
         this.playNextSong = this.playNextSong.bind(this);
         this.playPrevSong = this.playPrevSong.bind(this);
         this.handleEnded = this.handleEnded.bind(this);
+
         //const audioElement =''playNextSongplayNextSong        this.audio.addEventListener('ended', this.handleEnded);
 
         this.state={
@@ -73,7 +74,8 @@ class Player extends Component{
             return;
         }
         this.audio.load();
-        this. handleVolume(50)
+        this. handleVolume(50);
+        this.setState({isPlaying:true});
         this.audio.play();
     }
 
@@ -119,7 +121,7 @@ class Player extends Component{
         if(this.props.currentSong){
           const style={margin:'6px'}
             return(
-                <div className="player">
+                  <div className="player">
                     <audio id="audio" ref={audio=>this.audio = audio}>
                     <source src={`${this.props.currentSong.stream_url}?client_id=${CLIENT_ID}`} type="audio/ogg"/>
                     </audio>
@@ -154,9 +156,10 @@ class Player extends Component{
 }
 
 function mapStateToProps(state){
+  console.log(state);
     return{
         currentSong:state.player.currentSong,
-        songIndex:state.player.currentSongIndex
+        songIndex:state.player.currentSongIndex,
     }
 }
 
