@@ -22,7 +22,9 @@ class Player extends Component{
         this.handleSeeking = this.handleSeeking.bind(this);
         this.playNextSong = this.playNextSong.bind(this);
         this.playPrevSong = this.playPrevSong.bind(this);
-        //const audioElement =''playNextSongplayNextSong
+        this.handleEnded = this.handleEnded.bind(this);
+        //const audioElement =''playNextSongplayNextSong        this.audio.addEventListener('ended', this.handleEnded);
+
         this.state={
             isPlaying:true,
             muted:false,
@@ -30,7 +32,7 @@ class Player extends Component{
             repeat:false,
             currentTime:0,
             duration:0,
-            volume:0
+            volume:50
         }
 
     }
@@ -67,14 +69,16 @@ class Player extends Component{
     // }
 
     componentDidUpdate(prevProps){
-      console.log(prevProps)
-      console.log(this.props);;
         if(prevProps.currentSong.id == this.props.currentSong.id){
             return;
         }
-        //const audioElement = ReactDOM.findDOMNode(this.refs.audio);
         this.audio.load();
+        this. handleVolume(50)
         this.audio.play();
+    }
+
+    handleEnded(event){
+      this.playNextSong();
     }
 
     handlePause(event){
@@ -88,7 +92,7 @@ class Player extends Component{
         this.audio.play();
     }
 
-    handleFirstSlider(event){
+    handleVolume(event){
             const audioElement = document.getElementById('audio');
             audioElement.volume = event/100;
     }
@@ -112,8 +116,6 @@ class Player extends Component{
 
 
     render(){
-        console.log("PLAYER RENDERING");
-        console.log(this.props.currentSong);
         if(this.props.currentSong){
           const style={margin:'6px'}
             return(
@@ -121,7 +123,7 @@ class Player extends Component{
                     <audio id="audio" ref={audio=>this.audio = audio}>
                     <source src={`${this.props.currentSong.stream_url}?client_id=${CLIENT_ID}`} type="audio/ogg"/>
                     </audio>
-                    <Grid style={style} container justify="space-between" align="center" gutter={24}>
+                    <Grid style={style} container align="center" gutter={24}>
                         <Grid item md={2}>
                                 <i onClick={this.playPrevSong} className="material-icons md-light">skip_previous</i>{"  "}{" "}
                                 {this.state.isPlaying?<i onClick={this.handlePause} className="material-icons md-light">pause</i>: <i onClick={this.handlePlay} className="material-icons md-light">play_arrow</i>}
@@ -130,7 +132,7 @@ class Player extends Component{
                         <Grid item md={3}>
                         {this.props.currentSong.title}
                         </Grid>
-                        <Grid item md = {4}>
+                        <Grid item md = {3}>
                             <Slider tipTransitionName="Seeker" min={0}  max={convertMilliSecondToSecond(this.props.currentSong.duration)} onAfterChange={this.handleSeeking} handle={this.handle} />
                         </Grid>
                         <Grid item md={1}>
@@ -138,7 +140,7 @@ class Player extends Component{
                          {formatSeconds(this.state.currentTime)} </p>
                         </Grid>
                         <Grid item md={2}>
-                            <Slider tipTransitionName="volume" tipFormatter={10} onChange={this.handleFirstSlider} defaultValue={this.state.volume} />
+                            <Slider tipTransitionName="volume" tipFormatter={10} onChange={this.handleVolume} defaultValue={this.state.volume} />
                         </Grid>
 
                      </Grid>
