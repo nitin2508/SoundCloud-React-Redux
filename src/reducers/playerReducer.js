@@ -7,7 +7,8 @@ const initalState = {
   selectedPlaylists: [],
   listOfPlayList: {},
   currentTime: 0,
-  nextUrl: ''
+  nextUrl: '',
+  currentSong:''
 };
 
 export default function PlayerReducer(state = initalState, action) {
@@ -26,7 +27,7 @@ export default function PlayerReducer(state = initalState, action) {
       });
     case CHANGE_PLAYING_SONG:
       return Object.assign({}, state, {
-        currentSongIndex: action.currentSongIndex
+        currentSong: action.currentSong
       });
     case TOGGLE_IS_PLAYING:
       return Object.assign({}, state, {

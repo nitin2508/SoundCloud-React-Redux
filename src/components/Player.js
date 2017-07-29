@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Grid from 'material-ui/Grid';
-import {formatSeconds , convertMilliSecondToSecond} from '../utilFunction/track/track.js';
+import {convertMilliSecondToSecond,formatSeconds} from '../utilFunction/utilFunction.js';
 import {bindActionCreators} from 'redux';
 import {playNext} from '../actions/playerAction'
 import {playSong} from '../actions/playerAction.js';
@@ -67,7 +67,9 @@ class Player extends Component{
     // }
 
     componentDidUpdate(prevProps){
-        if(prevProps.songIndex == this.props.songIndex){
+      console.log(prevProps)
+      console.log(this.props);;
+        if(prevProps.currentSong.id == this.props.currentSong.id){
             return;
         }
         //const audioElement = ReactDOM.findDOMNode(this.refs.audio);
@@ -111,23 +113,31 @@ class Player extends Component{
 
     render(){
         console.log("PLAYER RENDERING");
+        console.log(this.props.currentSong);
         if(this.props.currentSong){
+          const style={margin:'6px'}
             return(
                 <div className="player">
                     <audio id="audio" ref={audio=>this.audio = audio}>
                     <source src={`${this.props.currentSong.stream_url}?client_id=${CLIENT_ID}`} type="audio/ogg"/>
                     </audio>
-                    <Grid container justify="space-between" align="center" gutter={24}>
+                    <Grid style={style} container justify="space-between" align="center" gutter={24}>
                         <Grid item md={2}>
-                                <i onClick={this.playPrevSong} className="material-icons md-light">skip_previous</i>
+                                <i onClick={this.playPrevSong} className="material-icons md-light">skip_previous</i>{"  "}{" "}
                                 {this.state.isPlaying?<i onClick={this.handlePause} className="material-icons md-light">pause</i>: <i onClick={this.handlePlay} className="material-icons md-light">play_arrow</i>}
-                                <i onClick={this.playNextSong} className="material-icons md-light">skip_next</i>
+                                  {" "}{" "}<i onClick={this.playNextSong} className="material-icons md-light">skip_next</i>
+                        </Grid>
+                        <Grid item md={3}>
+                        {this.props.currentSong.title}
                         </Grid>
                         <Grid item md = {4}>
-                        <p>{convertMilliSecondToSecond(this.props.currentSong.duration)} {this.state.currentTime} </p>
                             <Slider tipTransitionName="Seeker" min={0}  max={convertMilliSecondToSecond(this.props.currentSong.duration)} onAfterChange={this.handleSeeking} handle={this.handle} />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={1}>
+                        <p>{formatSeconds(convertMilliSecondToSecond(this.props.currentSong.duration))} {" "}/{" "}
+                         {formatSeconds(this.state.currentTime)} </p>
+                        </Grid>
+                        <Grid item md={2}>
                             <Slider tipTransitionName="volume" tipFormatter={10} onChange={this.handleFirstSlider} defaultValue={this.state.volume} />
                         </Grid>
 
@@ -143,7 +153,7 @@ class Player extends Component{
 
 function mapStateToProps(state){
     return{
-        currentSong:state.player.selectedPlaylists[state.player.currentSongIndex],
+        currentSong:state.player.currentSong,
         songIndex:state.player.currentSongIndex
     }
 }
