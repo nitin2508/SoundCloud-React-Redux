@@ -105,7 +105,7 @@ class Player extends Component{
 
     playNextSong(){
         const nextIndex = this.props.songIndex+1;
-        this.props.playSong(nextIndex);
+        this.props.playSong(null,nextIndex);
     }
 
     playPrevSong(){
@@ -113,7 +113,7 @@ class Player extends Component{
             return;
         }
         const prevIndex = this.props.songIndex-1;
-        this.props.playSong(prevIndex);
+        this.props.playSong(null,prevIndex);
     }
 
 
@@ -121,15 +121,15 @@ class Player extends Component{
         if(this.props.currentSong){
           const style={margin:'6px'}
             return(
-                  <div className="player">
+                  <div className="player highZIndex">
                     <audio id="audio" ref={audio=>this.audio = audio}>
                     <source src={`${this.props.currentSong.stream_url}?client_id=${CLIENT_ID}`} type="audio/ogg"/>
                     </audio>
                     <Grid style={style} container align="center" gutter={24}>
                         <Grid item md={2}>
-                                <i onClick={this.playPrevSong} className="material-icons md-light">skip_previous</i>{"  "}{" "}
-                                {this.state.isPlaying?<i onClick={this.handlePause} className="material-icons md-light">pause</i>: <i onClick={this.handlePlay} className="material-icons md-light">play_arrow</i>}
-                                  {" "}{" "}<i onClick={this.playNextSong} className="material-icons md-light">skip_next</i>
+                                <i onClick={this.playPrevSong} className="material-icons md-light cursor-pointer">skip_previous</i>{"  "}{" "}
+                                {this.state.isPlaying?<i onClick={this.handlePause} className="material-icons md-light cursor-pointer">pause</i>: <i onClick={this.handlePlay} className="material-icons md-light">play_arrow</i>}
+                                  {" "}{" "}<i onClick={this.playNextSong} className="material-icons md-light cursor-pointer">skip_next</i>
                         </Grid>
                         <Grid item md={3}>
                         {this.props.currentSong.title}
@@ -156,7 +156,6 @@ class Player extends Component{
 }
 
 function mapStateToProps(state){
-  console.log(state);
     return{
         currentSong:state.player.currentSong,
         songIndex:state.player.currentSongIndex,

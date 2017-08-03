@@ -14,7 +14,6 @@ class TabComponent extends Component {
   }
 
   onScroll(event) {
-    console.log(window.scrollY);
     if(window.scrollY>75){
       document.getElementById('tabComponent').style.position='fixed';
       document.getElementById('tabComponent').style.top='0';

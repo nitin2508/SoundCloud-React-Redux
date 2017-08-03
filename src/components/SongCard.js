@@ -14,7 +14,7 @@ class SongCard extends Component {
         super(props);
     }
 
-    CardExampleWithAvatar(song) {
+    CardExampleWithAvatar(song,index) {
         return (
             <div>
                 <img src={songCardImageUrl(song)}/>
@@ -27,7 +27,7 @@ class SongCard extends Component {
                     </div>
                     <div className="card-button">
                         <i
-                            onClick={() => this.props.playSong(song)}
+                            onClick={() => this.props.playSong(song,index)}
                             className="material-icons md-light card-button-icon">play_arrow</i>
                     </div>
                 </div>
@@ -36,8 +36,9 @@ class SongCard extends Component {
     }
     render() {
         const song = this.props.song;
+        const index = this.props.index;
         return (
-            <div className="ClassCard">{this.CardExampleWithAvatar(song)}</div>
+            <div className="ClassCard">{this.CardExampleWithAvatar(song,index)}</div>
         );
     }
 }

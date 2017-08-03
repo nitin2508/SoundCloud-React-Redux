@@ -61,10 +61,14 @@ body{
     color:#42c0fb;
     font-size: 12px;
         border-top: 1px solid #42c0fb;
+        margin-bottom: -2px;
 }
 .card-button-icon:hover{
     color:#468fd0;
     cursor: pointer;
+}
+.cursor-pointer{
+  cursor: pointer;
 }
 .loadingDiv{
     text-align: center;

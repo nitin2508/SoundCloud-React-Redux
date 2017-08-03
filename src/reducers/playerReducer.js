@@ -3,16 +3,16 @@ import { FETCH_PLAYLIST,PLAY_SONG,ON_SEARCH,ON_SCROLL} from '../actions/index';
 import {CHANGE_PLAYING_SONG,TOGGLE_IS_PLAYING} from '../actions/playerAction.js';
 const initalState = {
   currentSongIndex: null,
+  currentSong:'',
   isPlaying: false,
   selectedPlaylists: [],
   listOfPlayList: {},
   currentTime: 0,
   nextUrl: '',
-  currentSong:''
 };
 
 export default function PlayerReducer(state = initalState, action) {
-    console.log(state);
+  console.log(action);
   switch (action.type) {
     case FETCH_PLAYLIST:
       let key = action.meta.key;
@@ -27,7 +27,8 @@ export default function PlayerReducer(state = initalState, action) {
       });
     case CHANGE_PLAYING_SONG:
       return Object.assign({}, state, {
-        currentSong: action.currentSong,
+        currentSong: action.currentSong?action.currentSong:state.selectedPlaylists[action.index],
+        currentSongIndex:action.index,
         isPlaying:true
       });
     case TOGGLE_IS_PLAYING:
