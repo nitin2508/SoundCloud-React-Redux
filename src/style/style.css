@@ -9,6 +9,9 @@ body{
       /*height: 80vh;
     overflow-y:visible;*/
 }
+#tabComponent{
+width:100%;
+}
 .header{
   color:#42c0fb;
   background-color:black;
@@ -80,6 +83,12 @@ body{
 }
 .margin-t-6{
   margin-top: 6px;
+}
+.margin-l-10{
+  margin-left:10px;
+}
+.margin-r-10{
+  margin-right:10px;
 }
 .tabParent header{
   background-color: #42c0fb;

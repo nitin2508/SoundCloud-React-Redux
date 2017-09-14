@@ -41,44 +41,57 @@ class Header extends Component {
       const inputStyle={
         color:'#42c0fb',
         fontSize:'14px'
-      }
+      };
         return (
-            <Grid
-                container
-                align="center"
-                direction="row"
-                justify="space-between"
-                className="header">
-                <Grid item>
-                    <div className="margin-t-6">
-                        <Grid container align="center" direction="row">
-                            <img className="logo" src={logo}/>
-                            <p>SOUND CLOUD</p>
-                        </Grid>
-                    </div>
-                </Grid>
-                <Grid item>
-                <div style={inputStyle} className="">
-                  <form  onSubmit={this.onSearch}>
-                    <i style={{fontSize:'20px',top:'5px',marginRight:'10px'}} className="material-icons md-light card-button-icon">search</i>
-                  <Input style={{color:'#42c0fb',borderBottom:'1px solid brown !important'}} placeholder="Search" type="text" className="" onChange={this.onInputChange} />
-                  </form>
-                </div>
-
-                </Grid>
-            </Grid>
+          <div className="header flex layout-row layout-align-space-between-center ">
+            <div className="flex layout-row layout-align-start-center">
+                <img className="logo hide-xs" src={logo}/>
+                <p>SOUND CLOUD</p>
+            </div>
+            <div style={inputStyle} className="">
+                <form  onSubmit={this.onSearch}>
+                  <i style={{fontSize:'20px',top:'5px',marginRight:'10px'}} className="material-icons md-light card-button-icon">search</i>
+                <Input style={{color:'#42c0fb',borderBottom:'1px solid brown !important'}} placeholder="Search" type="text" className="" onChange={this.onInputChange} />
+                </form>
+            </div>
+          </div>
         )
     }
 }
+
+// <Grid
+//     container
+//     align="center"
+//     direction="row"
+//     justify="space-between"
+//     className="header">
+//     <Grid item>
+//         <div className="margin-t-6">
+//             <Grid container align="center" direction="row">
+//                 <img className="logo" src={logo}/>
+//                 <p>SOUND CLOUD</p>
+//             </Grid>
+//         </div>
+//     </Grid>
+//     <Grid item>
+//     <div style={inputStyle} className="">
+//       <form  onSubmit={this.onSearch}>
+//         <i style={{fontSize:'20px',top:'5px',marginRight:'10px'}} className="material-icons md-light card-button-icon">search</i>
+//       <Input style={{color:'#42c0fb',borderBottom:'1px solid brown !important'}} placeholder="Search" type="text" className="" onChange={this.onInputChange} />
+//       </form>
+//     </div>
+//
+//     </Grid>
+// </Grid>
 // {this.props.isFetching?<div>Nitinnnnnnnnnnnnn</div>:<LoadingComponent/>}
-function mapDispatchToprops(dispatch) {
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         searchSong
     }, dispatch);
 }
 
 function mapStateToProps(state) {
-    return {isFetching: state.inFetching}
+    return {isFetching: state.isFetching}
 }
 
-export default connect(mapStateToProps, mapDispatchToprops)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

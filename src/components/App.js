@@ -10,6 +10,7 @@ import purple from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Button from 'material-ui/Button';
+import '../style/react-material-class-layout.css';
 
 const theme = createMuiTheme({
   palette: createPalette({
